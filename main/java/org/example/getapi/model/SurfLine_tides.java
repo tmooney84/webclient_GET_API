@@ -10,7 +10,5 @@ import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class LowerTrestles {
-    @JsonProperty("timestamp");
-    Long timestamp;
+public class SurfLine_tides {
 }
