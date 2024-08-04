@@ -1,16 +1,97 @@
 package org.example.getapi.dto;
 
-public class SurfLine_sunlight_DTO {
-    Long sunrise;
-    Long sunset;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
-    final Integer PST_UTCOffset = -7;
+import java.util.List;
+
+@Setter
+@Getter
+public class SurfLine_sunlight_DTO {
+
+    // Getters and Setters
+    @JsonProperty("associated")
+    private Associated associated;
+
+    @JsonProperty("data")
+    private Data data;
+
+    // Nested classes
+
+    @Setter
+    @Getter
+    public static class Associated {
+        // Getters and Setters
+        @JsonProperty("location")
+        private Location location;
+
+    }
+
+    @Setter
+    @Getter
+    public static class Location {
+        // Getters and Setters
+        @JsonProperty("lon")
+        private double lon;
+
+        @JsonProperty("lat")
+        private double lat;
+
+    }
+
+    @Setter
+    @Getter
+    public static class Data {
+        // Getters and Setters
+        @JsonProperty("sunlight")
+        private List<Sunlight> sunlight;
+
+    }
+
+    @Setter
+    @Getter
+    public static class Sunlight {
+        // Getters and Setters
+        @JsonProperty("midnight")
+        private long midnight;
+
+        @JsonProperty("midnightUTCOffset")
+        private int midnightUTCOffset;
+
+        @JsonProperty("dawn")
+        private long dawn;
+
+        @JsonProperty("dawnUTCOffset")
+        private int dawnUTCOffset;
+
+        @JsonProperty("sunrise")
+        private long sunrise;
+
+        @JsonProperty("sunriseUTCOffset")
+        private int sunriseUTCOffset;
+
+        @JsonProperty("sunset")
+        private long sunset;
+
+        @JsonProperty("sunsetUTCOffset")
+        private int sunsetUTCOffset;
+
+        @JsonProperty("dusk")
+        private long dusk;
+
+        @JsonProperty("duskUTCOffset")
+        private int duskUTCOffset;
+
+    }
 }
+
+
 
 /*Example sunlight JSON Data: https://services.surfline.com/kbyg/spots/forecasts/sunlight?spotId=5842041f4e65fad6a770888a&days=16&intervalHours=1
 ***The data contained in the JSON is for 2 weeks
 
-    "associated": {
+   { "associated": {
         "location": {
             "lon": -117.58843,
             "lat": 33.38143999849023

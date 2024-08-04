@@ -1,34 +1,132 @@
 package org.example.getapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
-//Needed Data from each JSON>>> forecastLocation>longitude & latitude
+import java.util.List;
 
-// humanRelation
-// RATING:
-// SWELLS:
-// TIDES:
-//OPEN-METRO: "weather_code","temperature_2m","wind_speed_10m", "wind_direction_10m"
-
-//SurfLine_surf will give object with hourly updates on
-// hourly updates on: data>>>surf>>>timestamp, surf.min & surf.max & surf.plus(boolean),
+@Setter
+@Getter
 public class SurfLine_surf_DTO {
-   //timestamp should be the identifier for the particular row in the database
-   @JsonProperty("timestamp")
-   Long timestamp;
 
-    final Integer PST_UTCOffset = -7;
+    // Getters and Setters
+    @JsonProperty("associated")
+    private Associated associated;
 
-    @JsonProperty("min")
-    Integer min;
-    @JsonProperty("max")
-    Integer max;
-    @JsonProperty("plus")
-    Boolean plus;
-    @JsonProperty("humanRelation")
-    String humanRelation;
+    @JsonProperty("data")
+    private Data data;
+
+    // Nested classes
+
+    @Setter
+    @Getter
+    public static class Associated {
+        // Getters and Setters
+        @JsonProperty("units")
+        private Units units;
+
+        @JsonProperty("location")
+        private Location location;
+
+        @JsonProperty("forecastLocation")
+        private ForecastLocation forecastLocation;
+
+        @JsonProperty("runInitializationTimestamp")
+        private long runInitializationTimestamp;
+
+    }
+
+    @Setter
+    @Getter
+    public static class Units {
+        // Getters and Setters
+        @JsonProperty("waveHeight")
+        private String waveHeight;
+
+    }
+
+    @Setter
+    @Getter
+    public static class Location {
+        // Getters and Setters
+        @JsonProperty("lon")
+        private double lon;
+
+        @JsonProperty("lat")
+        private double lat;
+
+    }
+
+    @Setter
+    @Getter
+    public static class ForecastLocation {
+        // Getters and Setters
+        @JsonProperty("lon")
+        private double lon;
+
+        @JsonProperty("lat")
+        private double lat;
+
+    }
+
+    @Setter
+    @Getter
+    public static class Data {
+        // Getters and Setters
+        @JsonProperty("surf")
+        private List<Surf> surf;
+
+    }
+
+    @Setter
+    @Getter
+    public static class Surf {
+        // Getters and Setters
+        @JsonProperty("timestamp")
+        private long timestamp;
+
+        @JsonProperty("utcOffset")
+        private int utcOffset;
+
+        @JsonProperty("surf")
+        private SurfDetails surfDetails;
+
+    }
+
+    @Setter
+    @Getter
+    public static class SurfDetails {
+        // Getters and Setters
+        @JsonProperty("min")
+        private double min;
+
+        @JsonProperty("max")
+        private double max;
+
+        @JsonProperty("plus")
+        private boolean plus;
+
+        @JsonProperty("humanRelation")
+        private String humanRelation;
+
+        @JsonProperty("raw")
+        private Raw raw;
+
+    }
+
+    @Setter
+    @Getter
+    public static class Raw {
+        // Getters and Setters
+        @JsonProperty("min")
+        private double min;
+
+        @JsonProperty("max")
+        private double max;
+
+    }
 }
-
 
 
 /*

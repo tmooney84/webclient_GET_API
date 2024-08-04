@@ -1,17 +1,92 @@
+//Refactored with Jackson to take in JSON
+
 package org.example.getapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.List;
+
+@Setter
+@Getter
 public class SurfLine_rating_DTO {
-    @JsonProperty("key")
-    private String key;
-    //time stamp needed?
-    @JsonProperty("timestamp")
-    Long timestamp;
-    final Integer PST_UTCOffset = -7;
+
+    @JsonProperty("associated")
+    private Associated associated;
+
+    @JsonProperty("data")
+    private Data data;
+
+    // Getters and setters
+
+    // Nested classes
+
+    @Setter
+    @Getter
+    public static class Associated {
+        @JsonProperty("location")
+        private Location location;
+
+        @JsonProperty("runInitializationTimestamp")
+        private long runInitializationTimestamp;
+
+        // Getters and setters
+
+    }
+
+    @Setter
+    @Getter
+    public static class Location {
+        @JsonProperty("lon")
+        private double lon;
+
+        @JsonProperty("lat")
+        private double lat;
+
+        // Getters and setters
+
+    }
+
+    @Setter
+    @Getter
+    public static class Data {
+        @JsonProperty("rating")
+        private List<Rating> rating;
+
+        // Getters and setters
+
+    }
+
+    @Setter
+    @Getter
+    public static class Rating {
+        @JsonProperty("timestamp")
+        private long timestamp;
+
+        @JsonProperty("utcOffset")
+        private int utcOffset;
+
+        @JsonProperty("rating")
+        private RatingDetails ratingDetails;
+
+        // Getters and setters
+
+    }
+
+    @Setter
+    @Getter
+    public static class RatingDetails {
+        @JsonProperty("key")
+        private String key;
+
+        @JsonProperty("value")
+        private double value;
+
+        // Getters and setters
+
+    }
 }
-
-
 
 
 /*Example rating JSON Data: https://services.surfline.com/kbyg/spots/forecasts/rating?spotId=5842041f4e65fad6a770888a&days=5&intervalHours=1&cacheEnabled=true
