@@ -1,16 +1,17 @@
-//Refactored with Jackson to take in JSON
-
 package org.example.getapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Setter
 @Getter
-public class SurfLine_rating_DTO {
+@JsonIgnoreProperties(ignoreUnknown = true)  // Add this annotation
+public class SurfLine_rating_DTO implements Serializable {
 
     @JsonProperty("associated")
     private Associated associated;
@@ -18,49 +19,71 @@ public class SurfLine_rating_DTO {
     @JsonProperty("data")
     private Data data;
 
-    // Getters and setters
-
-    // Nested classes
+    @Override
+    public String toString() {
+        return "SurfLine_rating_DTO{" +
+                "associated=" + associated +
+                ", data=" + data +
+                '}';
+    }
 
     @Setter
     @Getter
-    public static class Associated {
+    public static class Associated implements Serializable {
+
         @JsonProperty("location")
         private Location location;
 
         @JsonProperty("runInitializationTimestamp")
         private long runInitializationTimestamp;
 
-        // Getters and setters
-
+        @Override
+        public String toString() {
+            return "Associated{" +
+                    "location=" + location +
+                    ", runInitializationTimestamp=" + runInitializationTimestamp +
+                    '}';
+        }
     }
 
     @Setter
     @Getter
-    public static class Location {
+    public static class Location implements Serializable {
+
         @JsonProperty("lon")
         private double lon;
 
         @JsonProperty("lat")
         private double lat;
 
-        // Getters and setters
-
+        @Override
+        public String toString() {
+            return "Location{" +
+                    "lon=" + lon +
+                    ", lat=" + lat +
+                    '}';
+        }
     }
 
     @Setter
     @Getter
-    public static class Data {
+    public static class Data implements Serializable {
+
         @JsonProperty("rating")
         private List<Rating> rating;
 
-        // Getters and setters
-
+        @Override
+        public String toString() {
+            return "Data{" +
+                    "rating=" + rating +
+                    '}';
+        }
     }
 
     @Setter
     @Getter
-    public static class Rating {
+    public static class Rating implements Serializable {
+
         @JsonProperty("timestamp")
         private long timestamp;
 
@@ -70,24 +93,35 @@ public class SurfLine_rating_DTO {
         @JsonProperty("rating")
         private RatingDetails ratingDetails;
 
-        // Getters and setters
-
+        @Override
+        public String toString() {
+            return "Rating{" +
+                    "timestamp=" + timestamp +
+                    ", utcOffset=" + utcOffset +
+                    ", ratingDetails=" + ratingDetails +
+                    '}';
+        }
     }
 
     @Setter
     @Getter
-    public static class RatingDetails {
+    public static class RatingDetails implements Serializable {
+
         @JsonProperty("key")
         private String key;
 
         @JsonProperty("value")
         private double value;
 
-        // Getters and setters
-
+        @Override
+        public String toString() {
+            return "RatingDetails{" +
+                    "key='" + key + '\'' +
+                    ", value=" + value +
+                    '}';
+        }
     }
 }
-
 
 /*Example rating JSON Data: https://services.surfline.com/kbyg/spots/forecasts/rating?spotId=5842041f4e65fad6a770888a&days=5&intervalHours=1&cacheEnabled=true
 
