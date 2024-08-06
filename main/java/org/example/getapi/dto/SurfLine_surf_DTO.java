@@ -1,5 +1,6 @@
 package org.example.getapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,21 +9,27 @@ import java.util.List;
 
 @Setter
 @Getter
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SurfLine_surf_DTO {
 
-    // Getters and Setters
     @JsonProperty("associated")
     private Associated associated;
 
     @JsonProperty("data")
     private Data data;
 
-    // Nested classes
+    @Override
+    public String toString() {
+        return "SurfLine_surf_DTO{" +
+                "associated=" + associated +
+                ", data=" + data +
+                '}';
+    }
 
     @Setter
     @Getter
     public static class Associated {
-        // Getters and Setters
+
         @JsonProperty("units")
         private Units units;
 
@@ -35,54 +42,89 @@ public class SurfLine_surf_DTO {
         @JsonProperty("runInitializationTimestamp")
         private long runInitializationTimestamp;
 
+        @Override
+        public String toString() {
+            return "Associated{" +
+                    "units=" + units +
+                    ", location=" + location +
+                    ", forecastLocation=" + forecastLocation +
+                    ", runInitializationTimestamp=" + runInitializationTimestamp +
+                    '}';
+        }
     }
 
     @Setter
     @Getter
     public static class Units {
-        // Getters and Setters
+
         @JsonProperty("waveHeight")
         private String waveHeight;
 
+        @Override
+        public String toString() {
+            return "Units{" +
+                    "waveHeight='" + waveHeight + '\'' +
+                    '}';
+        }
     }
 
     @Setter
     @Getter
     public static class Location {
-        // Getters and Setters
+
         @JsonProperty("lon")
         private double lon;
 
         @JsonProperty("lat")
         private double lat;
 
+        @Override
+        public String toString() {
+            return "Location{" +
+                    "lon=" + lon +
+                    ", lat=" + lat +
+                    '}';
+        }
     }
 
     @Setter
     @Getter
     public static class ForecastLocation {
-        // Getters and Setters
+
         @JsonProperty("lon")
         private double lon;
 
         @JsonProperty("lat")
         private double lat;
 
+        @Override
+        public String toString() {
+            return "ForecastLocation{" +
+                    "lon=" + lon +
+                    ", lat=" + lat +
+                    '}';
+        }
     }
 
     @Setter
     @Getter
     public static class Data {
-        // Getters and Setters
+
         @JsonProperty("surf")
         private List<Surf> surf;
 
+        @Override
+        public String toString() {
+            return "Data{" +
+                    "surf=" + surf +
+                    '}';
+        }
     }
 
     @Setter
     @Getter
     public static class Surf {
-        // Getters and Setters
+
         @JsonProperty("timestamp")
         private long timestamp;
 
@@ -92,12 +134,20 @@ public class SurfLine_surf_DTO {
         @JsonProperty("surf")
         private SurfDetails surfDetails;
 
+        @Override
+        public String toString() {
+            return "Surf{" +
+                    "timestamp=" + timestamp +
+                    ", utcOffset=" + utcOffset +
+                    ", surfDetails=" + surfDetails +
+                    '}';
+        }
     }
 
     @Setter
     @Getter
     public static class SurfDetails {
-        // Getters and Setters
+
         @JsonProperty("min")
         private double min;
 
@@ -113,21 +163,37 @@ public class SurfLine_surf_DTO {
         @JsonProperty("raw")
         private Raw raw;
 
+        @Override
+        public String toString() {
+            return "SurfDetails{" +
+                    "min=" + min +
+                    ", max=" + max +
+                    ", plus=" + plus +
+                    ", humanRelation='" + humanRelation + '\'' +
+                    ", raw=" + raw +
+                    '}';
+        }
     }
 
     @Setter
     @Getter
     public static class Raw {
-        // Getters and Setters
+
         @JsonProperty("min")
         private double min;
 
         @JsonProperty("max")
         private double max;
 
+        @Override
+        public String toString() {
+            return "Raw{" +
+                    "min=" + min +
+                    ", max=" + max +
+                    '}';
+        }
     }
 }
-
 
 /*
 Example surf JSON output from https://services.surfline.com/kbyg/spots/forecasts/surf?cacheEnabled=true&days=5&intervalHours=1&spotId=5842041f4e65fad6a770888a&units%5BwaveHeight%5D=FT

@@ -1,58 +1,85 @@
 package org.example.getapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Setter
 @Getter
-public class SurfLine_sunlight_DTO {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class SurfLine_sunlight_DTO implements Serializable {
 
-    // Getters and Setters
     @JsonProperty("associated")
     private Associated associated;
 
     @JsonProperty("data")
     private Data data;
 
-    // Nested classes
-
-    @Setter
-    @Getter
-    public static class Associated {
-        // Getters and Setters
-        @JsonProperty("location")
-        private Location location;
-
+    @Override
+    public String toString() {
+        return "SurfLine_sunlight_DTO{" +
+                "associated=" + associated +
+                ", data=" + data +
+                '}';
     }
 
     @Setter
     @Getter
-    public static class Location {
-        // Getters and Setters
+    public static class Associated implements Serializable {
+
+        @JsonProperty("location")
+        private Location location;
+
+        @Override
+        public String toString() {
+            return "Associated{" +
+                    "location=" + location +
+                    '}';
+        }
+    }
+
+    @Setter
+    @Getter
+    public static class Location implements Serializable {
+
         @JsonProperty("lon")
         private double lon;
 
         @JsonProperty("lat")
         private double lat;
 
+        @Override
+        public String toString() {
+            return "Location{" +
+                    "lon=" + lon +
+                    ", lat=" + lat +
+                    '}';
+        }
     }
 
     @Setter
     @Getter
-    public static class Data {
-        // Getters and Setters
+    public static class Data implements Serializable {
+
         @JsonProperty("sunlight")
         private List<Sunlight> sunlight;
 
+        @Override
+        public String toString() {
+            return "Data{" +
+                    "sunlight=" + sunlight +
+                    '}';
+        }
     }
 
     @Setter
     @Getter
-    public static class Sunlight {
-        // Getters and Setters
+    public static class Sunlight implements Serializable {
+
         @JsonProperty("midnight")
         private long midnight;
 
@@ -83,9 +110,23 @@ public class SurfLine_sunlight_DTO {
         @JsonProperty("duskUTCOffset")
         private int duskUTCOffset;
 
+        @Override
+        public String toString() {
+            return "Sunlight{" +
+                    "midnight=" + midnight +
+                    ", midnightUTCOffset=" + midnightUTCOffset +
+                    ", dawn=" + dawn +
+                    ", dawnUTCOffset=" + dawnUTCOffset +
+                    ", sunrise=" + sunrise +
+                    ", sunriseUTCOffset=" + sunriseUTCOffset +
+                    ", sunset=" + sunset +
+                    ", sunsetUTCOffset=" + sunsetUTCOffset +
+                    ", dusk=" + dusk +
+                    ", duskUTCOffset=" + duskUTCOffset +
+                    '}';
+        }
     }
 }
-
 
 
 /*Example sunlight JSON Data: https://services.surfline.com/kbyg/spots/forecasts/sunlight?spotId=5842041f4e65fad6a770888a&days=16&intervalHours=1

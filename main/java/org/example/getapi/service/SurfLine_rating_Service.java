@@ -15,9 +15,6 @@ public class SurfLine_rating_Service implements Serializable {
         this.objectMapper = new ObjectMapper();
     }
 
-// public SurfLineRatingDTO getSurfLineRating(String spotId) throws Exception {
-    //                                      why this? ^^^
-
     //Webclient to a GET method and pull the JSON for mapping
     public SurfLine_rating_DTO getSurfLineRating() throws Exception {
         String surfLineRating_LowerTrestles = "https://services.surfline.com/kbyg/spots/forecasts/rating?spotId=5842041f4e65fad6a770888a&days=5&intervalHours=1&cacheEnabled=trued";

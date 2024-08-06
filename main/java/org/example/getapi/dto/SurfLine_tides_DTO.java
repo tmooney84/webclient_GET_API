@@ -1,22 +1,129 @@
 package org.example.getapi.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SurfLine_tides_DTO {
-   Long lowTideTimeStamp1;
 
-   //may want to change others to this as well
-   final Integer PST_UTCOffset = -7;
+    @JsonProperty("associated")
+    private AssociatedData associated;
 
-   Long highTideTimeStamp1;
+    @JsonProperty("data")
+    private DataData data;
 
-    Long lowTideTimeStamp2;
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class AssociatedData {
+        @JsonProperty("units")
+        private Units units;
 
-    Long highTideTimeStamp2;
+        @JsonProperty("tideLocation")
+        private TideLocation tideLocation;
+
+        @JsonProperty("utcOffset")
+        private Integer utcOffset;
+
+        @Data
+        @NoArgsConstructor
+        @AllArgsConstructor
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        public static class Units {
+            @JsonProperty("tideHeight")
+            private String tideHeight;
+        }
+
+        @Data
+        @NoArgsConstructor
+        @AllArgsConstructor
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        public static class TideLocation {
+            @JsonProperty("name")
+            private String name;
+
+            @JsonProperty("min")
+            private Double min;
+
+            @JsonProperty("max")
+            private Double max;
+
+            @JsonProperty("lon")
+            private Double lon;
+
+            @JsonProperty("lat")
+            private Double lat;
+
+            @JsonProperty("mean")
+            private Double mean;
+        }
+    }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class DataData {
+        @JsonProperty("tides")
+        private List<TideEntry> tides;
+
+        @Data
+        @NoArgsConstructor
+        @AllArgsConstructor
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        public static class TideEntry {
+            @JsonProperty("timestamp")
+            private Long timestamp;
+
+            @JsonProperty("utcOffset")
+            private Integer utcOffset;
+
+            @JsonProperty("type")
+            private String type;
+
+            @JsonProperty("height")
+            private Double height;
+
+            @Override
+            public String toString() {
+                return "TideEntry{" +
+                        "timestamp=" + timestamp +
+                        ", utcOffset=" + utcOffset +
+                        ", type='" + type + '\'' +
+                        ", height=" + height +
+                        '}';
+            }
+        }
+
+        @Override
+        public String toString() {
+            return "DataData{" +
+                    "tides=" + tides +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "SurfLine_tides_DTO{" +
+                "associated=" + associated +
+                ", data=" + data +
+                '}';
+    }
 }
-
 
 /*Example sunlight JSON Data: https://services.surfline.com/kbyg/spots/forecasts/tides?spotId=5842041f4e65fad6a770888a&days=6&cacheEnabled=true&units%5BtideHeight%5D=FT
 {
-        "associated": {
+     "associated": {
         "utcOffset": -7,
         "units": {
         "tideHeight": "FT"

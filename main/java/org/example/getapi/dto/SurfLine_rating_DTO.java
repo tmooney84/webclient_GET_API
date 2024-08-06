@@ -10,7 +10,7 @@ import java.util.List;
 
 @Setter
 @Getter
-@JsonIgnoreProperties(ignoreUnknown = true)  // Add this annotation
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SurfLine_rating_DTO implements Serializable {
 
     @JsonProperty("associated")

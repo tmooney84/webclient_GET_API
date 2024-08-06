@@ -1,11 +1,4 @@
-package org.example.getapi.dto;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.List;
+//Associated doesn't print so better to rely on the first timestamp in the swell data
 
 /*
 currently using SurfLine's API for swell data but will migrate to the National Weather Service
@@ -13,44 +6,165 @@ Data at: https://weather-gov.github.io/api/gridpoints for primarySwellHeight:   
 secondarySwellHeight:    secondarySwellDirection: & will get an additional datapoint for
 waveHeight:  wavePeriod:   waveDirection:
  */
+package org.example.getapi.dto;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SurfLine_swells_DTO {
-    @JsonProperty("timestamp")
-    Long timestamp;
 
-    final Integer PST_UTCOffset = -7;
+    @JsonProperty("associated")
+    private AssociatedData associated;
 
-    @JsonProperty("swells")
-    List<SwellData> swells;
-//create fields for height, period, impact for the first three nested objects
-// at each timestamp
+    @JsonProperty("data")
+    private DataData data;
 
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class AssociatedData {
+        @JsonProperty("units")
+        private Units units;
 
-        public static class SwellData {
-            @JsonProperty("height")
-            Double height;
+        @JsonProperty("location")
+        private Location location;
 
-            @JsonProperty("period")
-            Integer period;
+        @JsonProperty("forecastLocation")
+        private ForecastLocation forecastLocation;
 
-            @JsonProperty("impact")
-            Double impact;
+        @JsonProperty("runInitializationTimestamp")
+        private Long runInitializationTimestamp;
 
-            @JsonProperty("power")
-            Double power;
+        @Data
+        @NoArgsConstructor
+        @AllArgsConstructor
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        public static class Units {
+            @JsonProperty("swellHeight")
+            private String swellHeight;
+        }
 
-            @JsonProperty("direction")
-            Double direction;
+        @Data
+        @NoArgsConstructor
+        @AllArgsConstructor
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        public static class Location {
+            @JsonProperty("lon")
+            private Double lon;
 
-            @JsonProperty("directionMin")
-            Double directionMin;
+            @JsonProperty("lat")
+            private Double lat;
+        }
+
+        @Data
+        @NoArgsConstructor
+        @AllArgsConstructor
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        public static class ForecastLocation {
+            @JsonProperty("lat")
+            private Double lat;
+
+            @JsonProperty("lon")
+            private Double lon;
         }
     }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class DataData {
+        @JsonProperty("swells")
+        private List<SwellEntry> swells;
+
+        @Data
+        @NoArgsConstructor
+        @AllArgsConstructor
+        @JsonIgnoreProperties(ignoreUnknown = true)
+        public static class SwellEntry {
+            @JsonProperty("timestamp")
+            private Long timestamp;
+
+            @JsonProperty("probability")
+            private Integer probability;
+
+            @JsonProperty("utcOffset")
+            private Integer utcOffset;
+
+            @JsonProperty("power")
+            private Double power;
+
+            @JsonProperty("swells")
+            private List<SwellData> swells;
+
+            @Data
+            @NoArgsConstructor
+            @AllArgsConstructor
+            @JsonIgnoreProperties(ignoreUnknown = true)
+            public static class SwellData {
+                @JsonProperty("height")
+                private Double height;
+
+                @JsonProperty("period")
+                private Integer period;
+
+                @JsonProperty("impact")
+                private Double impact;
+
+                @JsonProperty("power")
+                private Double power;
+
+                @JsonProperty("direction")
+                private Double direction;
+
+                @JsonProperty("directionMin")
+                private Double directionMin;
+
+                @Override
+                public String toString() {
+                    return "SwellData{" +
+                            "height=" + height +
+                            ", period=" + period +
+                            ", impact=" + impact +
+                            ", power=" + power +
+                            ", direction=" + direction +
+                            ", directionMin=" + directionMin +
+                            '}';
+                }
+            }
+
+            @Override
+            public String toString() {
+                return "SwellEntry{" +
+                        "timestamp=" + timestamp +
+                        ", probability=" + probability +
+                        ", utcOffset=" + utcOffset +
+                        ", power=" + power +
+                        ", swells=" + swells +
+                        '}';
+            }
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "SurfLineSwellsDTO{" +
+                "associated=" + associated +
+                ", data=" + data +
+                '}';
+    }
+}
+
 
 
 
