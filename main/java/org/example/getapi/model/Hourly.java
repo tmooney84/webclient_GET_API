@@ -1,4 +1,4 @@
 package org.example.getapi.model;
 
-public class SurfForecast {
+public class Hourly {
 }

@@ -1,7 +1,6 @@
 package org.example.getapi.service;
 
 import org.example.getapi.dto.SurfLine_rating_DTO;
-import org.example.getapi.model.SurfLine_rating;
 import org.springframework.web.reactive.function.client.WebClient;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.Serializable;
